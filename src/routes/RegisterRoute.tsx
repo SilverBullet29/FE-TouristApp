@@ -1,11 +1,11 @@
-import Register from "@pages/Register";
+import { Login } from "@components/pages";
 import { FC } from "react";
 
 const RegisterRoute: FC = () => {
   return (
-    <div>
-      <Register />
-    </div>
+    <>
+      <Login />
+    </>
   );
 };
 

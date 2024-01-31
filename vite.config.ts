@@ -2,18 +2,17 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 const aliases = {
-  "@atoms": "/src/components/atoms",
-  "@molecules": "/src/components/molecules",
-  "@organisms": "/src/components/organisms",
-  "@templates": "/src/components/templates",
-  "@pages": "/src/components/pages",
+  "@components": "/src/components/",
   "@routes": "/src/routes",
   "@infra": "/src/infra/",
   "@provider": "/src/infra/storage/providers",
+  "@assets": "/src/assets",
+  "@utils": "/src/utils/",
+  "@style": "/src/style/",
 };
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({}) => {
   return {
     plugins: [react()],
     resolve: {

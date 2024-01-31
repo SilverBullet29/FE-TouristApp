@@ -1,4 +1,4 @@
-import Login from "@pages/Login";
+import { Login } from "@components/pages";
 import { FC } from "react";
 
 const LoginRoute: FC = () => {

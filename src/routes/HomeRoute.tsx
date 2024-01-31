@@ -1,5 +1,4 @@
-import Home from "@pages/Home";
-import React from "react";
+import { Home } from "@components/pages";
 
 const HomeRoute = () => {
   return (

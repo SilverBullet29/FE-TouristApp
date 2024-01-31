@@ -14,17 +14,17 @@
     "jsxImportSource": "react",
     "baseUrl": "./src",
     "paths": {
-      "@atoms/*": ["components/atoms/*"],
-      "@molecules/*": ["components/molecules/*"],
-      "@organisms/*": ["components/organisms/*"],
-      "@templates/*": ["components/templates/*"],
-      "@pages/*": ["components/pages/*"],
+      "@components": ["components/"],
+      "@components/*": ["components/*"],
       "@routes/*": ["routes/*"],
       "@infra/*": ["infra/*"],
-      "@provider/*": ["infra/storage/providers"]
+      "@provider/*": ["infra/storage/providers"],
+      "@assets/*": ["assets/*"],
+      "@utils/*": ["utils/*"],
+      "@style/*": ["style/*"],
     },
-    "types": ["vite/client"]
+    "types": ["vite/client"],
   },
   "include": ["**/*.ts", "**/*.d.ts", "**/*.tsx", "**/*.js", "**/**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

@@ -1,11 +1,10 @@
-import { AuthProvider } from "@infra/storage/providers/AuthProvider";
-import Home from "@pages/Home";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeRoute from "@routes/HomeRoute";
 import LoginRoute from "@routes/LoginRoute";
 import PrivateRoute from "@routes/PrivateRoute";
 import RegisterRoute from "@routes/RegisterRoute";
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@infra/storage/providers/AuthProvider";
 
 const App: React.FC = () => {
   return (
