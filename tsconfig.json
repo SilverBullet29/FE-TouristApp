@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "jsxImportSource": "react",
+    "baseUrl": "./src",
+    "paths": {
+      "@atoms/*": ["components/atoms/*"],
+      "@molecules/*": ["components/molecules/*"],
+      "@organisms/*": ["components/organisms/*"],
+      "@templates/*": ["components/templates/*"],
+      "@pages/*": ["components/pages/*"],
+      "@routes/*": ["routes/*"],
+      "@infra/*": ["infra/*"],
+      "@provider/*": ["infra/storage/providers"]
+    },
+    "types": ["vite/client"]
+  },
+  "include": ["**/*.ts", "**/*.d.ts", "**/*.tsx", "**/*.js", "**/**/*.tsx"],
+  "exclude": ["node_modules"]
+}
