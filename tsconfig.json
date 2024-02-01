@@ -13,6 +13,7 @@
     "allowSyntheticDefaultImports": true,
     "jsxImportSource": "react",
     "baseUrl": "./src",
+    "outDir": "./dist",
     "paths": {
       "@components": ["components/"],
       "@components/*": ["components/*"],
