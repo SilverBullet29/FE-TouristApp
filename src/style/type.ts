@@ -3,6 +3,7 @@ export type ColorVariant =
   | "error"
   | "warning"
   | "success"
-  | "neutral";
+  | "neutral"
+  | "custom";
 
 export type ColorWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700;

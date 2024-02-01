@@ -1,4 +1,6 @@
-const colors = {
+import { ColorVariant, ColorWeight } from "./type";
+
+const colors: Record<ColorVariant, Record<ColorWeight, string>> = {
   primary: {
     700: "#0195a6",
     600: "#34aab8",
@@ -43,6 +45,15 @@ const colors = {
     300: "#E2E2E4",
     200: "#F7F7F7",
     100: "#FFFFFF",
+  },
+  custom: {
+    100: "#EFF0F4",
+    200: "#EFF0F4",
+    300: "#EFF0F4",
+    400: "#EFF0F4",
+    500: "#EFF0F4",
+    600: "#EFF0F4",
+    700: "#EFF0F4",
   },
 };
 

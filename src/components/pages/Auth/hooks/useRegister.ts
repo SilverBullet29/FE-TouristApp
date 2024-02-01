@@ -3,6 +3,10 @@ import { emailSchema, passwordSchema } from "@utils/schema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+import { authQueries } from "@infra/queries";
+import { toast } from "react-toastify";
+import { Auth } from "@infra/services/types";
 
 const schema = z.object({
   email: emailSchema,
@@ -17,6 +21,26 @@ interface FormData {
 }
 
 export default function useRegister() {
+  const navigate = useNavigate();
+
+  const onSuccess = useCallback((data: Auth.RegisterResponse) => {
+    toast.success(
+      "Sign up success. Please Sign in with your email and password",
+      { position: "bottom-center" },
+    );
+    navigate("/login");
+  }, []);
+
+  const { mutate } = authQueries.useQueryRegister({
+    onSuccess,
+    onError: (error) => {
+      toast.error(
+        `Sorry, your email or password is invalid. Please try again. ${error.message}`,
+        { position: "bottom-center" },
+      );
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -25,7 +49,7 @@ export default function useRegister() {
 
   const onRegis = useCallback(
     async (data: FormData) => {
-      console.log(data);
+      mutate(data);
     },
     [errors],
   );

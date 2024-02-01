@@ -1,18 +1,18 @@
 import { create } from "zustand";
 import { AuthState } from "./types";
-import { authServices } from "@infra/services";
+import { authStorage } from "../local/auth";
 
 export const useAuthStore = create<AuthState>((set) => {
   const setIsLogin = (isLogin: boolean) => set({ isLoggedin: isLogin });
   return {
-    isLoggedin: false,
+    isLoggedin: authStorage.isAuthenticated() ?? false,
     setIsLogin,
     login: (credential) => {
-      authServices.setCredential(credential);
+      authStorage.setCredential(credential);
       setIsLogin(true);
     },
     logout: () => {
-      authServices.removeCredential();
+      authStorage.removeCredential();
       setIsLogin(false);
     },
   };

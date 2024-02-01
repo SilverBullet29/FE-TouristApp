@@ -1,10 +1,10 @@
-import { Login } from "@components/pages";
+import { Auth } from "@components/pages";
 import { FC } from "react";
 
 const RegisterRoute: FC = () => {
   return (
     <>
-      <Login />
+      <Auth />
     </>
   );
 };

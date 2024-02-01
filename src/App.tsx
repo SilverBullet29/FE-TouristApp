@@ -4,21 +4,34 @@ import HomeRoute from "@routes/HomeRoute";
 import LoginRoute from "@routes/LoginRoute";
 import PrivateRoute from "@routes/PrivateRoute";
 import RegisterRoute from "@routes/RegisterRoute";
-import { AuthProvider } from "@infra/storage/providers/AuthProvider";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@infra/queries";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import PublicRoute from "@routes/PublicRoute";
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
+    <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          <Route path="/" element={<PrivateRoute />}>
-            <Route index element={<HomeRoute />} />
-          </Route>
-          <Route path="/login" element={<LoginRoute />} />
-          <Route path="/register" element={<RegisterRoute />} />
+          <Route path="/" element={<PrivateRoute component={HomeRoute} />} />
+          <Route
+            path="/profile"
+            element={<PrivateRoute component={HomeRoute} />}
+          />
+          <Route
+            path="/login"
+            element={<PublicRoute component={LoginRoute} />}
+          />
+          <Route
+            path="/register"
+            element={<PublicRoute component={RegisterRoute} />}
+          />
         </Routes>
       </Router>
-    </AuthProvider>
+      <ToastContainer />
+    </QueryClientProvider>
   );
 };
 
