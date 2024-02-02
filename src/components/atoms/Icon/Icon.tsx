@@ -2,8 +2,11 @@ import { getTwColor } from "@utils/color";
 import React, { FC, SVGProps, useMemo } from "react";
 import IcEye from "./svg/IcEye";
 import IcEyeOff from "./svg/IcEyeOff";
+import IcTrash from "./svg/IcTrash";
+import IcPencil from "./svg/IcPencil";
+import IcWarn from "./svg/IcWarn";
 
-export type IconName = "eye" | "eye-off";
+export type IconName = "eye" | "eye-off" | "trash" | "pencil" | "warn";
 
 interface Props extends SVGProps<SVGElement> {
   name: IconName;
@@ -14,6 +17,9 @@ interface Props extends SVGProps<SVGElement> {
 const EnumIcon: Record<IconName, React.FC> = {
   eye: IcEye,
   "eye-off": IcEyeOff,
+  trash: IcTrash,
+  pencil: IcPencil,
+  warn: IcWarn,
 };
 
 const Icon: FC<Props> = ({ name, size, fill, height, width, ...props }) => {

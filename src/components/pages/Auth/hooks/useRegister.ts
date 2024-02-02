@@ -31,7 +31,7 @@ export default function useRegister() {
     navigate("/login");
   }, []);
 
-  const { mutate } = authQueries.useQueryRegister({
+  const { mutate } = authQueries.useMutationRegister({
     onSuccess,
     onError: (error) => {
       toast.error(
@@ -47,12 +47,9 @@ export default function useRegister() {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const onRegis = useCallback(
-    async (data: FormData) => {
-      mutate(data);
-    },
-    [errors],
-  );
+  const onRegis = useCallback(async (data: FormData) => {
+    mutate(data);
+  }, []);
 
   return {
     register,

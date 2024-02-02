@@ -1,4 +1,4 @@
-import { setSessionData } from "@infra/storage/local/handler";
+import { Sidebar } from "@components/templates";
 import { useAuthStore } from "@infra/storage/store";
 import React from "react";
 import { Navigate, useMatch } from "react-router-dom";
@@ -12,10 +12,14 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
 }) => {
   const auth = useAuthStore();
   const match = useMatch("/:page");
-  if (!auth.isLoggedin) {
-    setSessionData("TEMP_PAGE", match?.pathname);
-  }
-  return auth.isLoggedin ? <Component /> : <Navigate to="/login" replace />;
+  return auth.isLoggedin ? (
+    <div className="flex h-screen w-full">
+      <Sidebar />
+      <Component />
+    </div>
+  ) : (
+    <Navigate to="/login" state={{ from: match?.pathname }} replace />
+  );
 };
 
 export default PrivateRoute;

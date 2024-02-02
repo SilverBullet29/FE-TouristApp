@@ -5,12 +5,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authQueries } from "@infra/queries";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Auth } from "@infra/services/types";
-import {
-  deleteSessionData,
-  getSessionData,
-} from "@infra/storage/local/handler";
 import { useAuthStore } from "@infra/storage/store";
 
 const schema = z.object({
@@ -25,6 +21,8 @@ interface FormData {
 
 export default function useLogin() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from;
   const { login } = useAuthStore();
   const {
     register,
@@ -32,18 +30,19 @@ export default function useLogin() {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const onSuccess = useCallback((data: Auth.LoginResponse) => {
-    login(data.data);
-    const tempPage = getSessionData("TEMP_PAGE");
-    if (tempPage) {
-      navigate(tempPage);
-      deleteSessionData("TEMP_PAGE");
-      return;
-    }
-    navigate("/");
-  }, []);
+  const onSuccess = useCallback(
+    (data: Auth.LoginResponse) => {
+      login(data.data);
+      if (from) {
+        navigate(from, { replace: true });
+        return;
+      }
+      navigate("/", { replace: true });
+    },
+    [from],
+  );
 
-  const { mutate } = authQueries.useQueryLogin({
+  const { mutate } = authQueries.useMutationLogin({
     onSuccess,
     onError: (error) => {
       toast.error(
@@ -53,12 +52,9 @@ export default function useLogin() {
     },
   });
 
-  const onLogin = useCallback(
-    async (data: FormData) => {
-      mutate(data);
-    },
-    [errors],
-  );
+  const onLogin = useCallback(async (data: FormData) => {
+    mutate(data);
+  }, []);
 
   return {
     register,

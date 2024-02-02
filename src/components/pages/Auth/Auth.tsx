@@ -6,7 +6,6 @@ import { useMatch } from "react-router-dom";
 const Auth = () => {
   const match = useMatch("/:page");
   const isLoginPage = match?.params.page === "login";
-
   return (
     <div className="flex h-screen w-full items-center justify-center">
       <div className="relative mx-0 flex h-full w-full items-center justify-center gap-12 rounded-none p-10 lg:mx-32 lg:h-2/3 lg:rounded-3xl 2xl:mx-64 2xl:my-64">

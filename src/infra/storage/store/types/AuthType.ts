@@ -1,8 +1,9 @@
-import { Auth } from "@infra/services/types";
+import { Auth, User } from "@infra/services/types";
 
 export type AuthState = {
-  setIsLogin: (isLogin: boolean) => void;
   isLoggedin: boolean;
+  userData: User.UserData;
+  setIsLogin: (isLogin: boolean) => void;
   login: (credential: Auth.UserCredential) => void;
   logout: () => void;
 };

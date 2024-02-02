@@ -5,9 +5,17 @@ export interface APIResponseError<T = string> {
   message: T;
 }
 
-export interface APIResponse {
+export interface APIResponse<T> {
+  data: T;
   success: boolean;
   message?: string;
+}
+
+export interface APIMeta {
+  page: string;
+  per_page: number;
+  total_pages: number;
+  totalrecord: number;
 }
 
 export type APIRequestConfig = AxiosRequestConfig;

@@ -1,6 +1,6 @@
 import { MAP_ROUTE } from "@utils/constant";
-import { FC, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { FC, useCallback, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "@assets/image/logo.webp";
 
 type ItemProp = {
@@ -13,13 +13,20 @@ type ItemProp = {
 
 const Sidebar = () => {
   const [active, setActive] = useState("/");
+  const location = useLocation();
 
   const handleClick = useCallback((path: string) => {
     setActive(path);
   }, []);
 
+  useEffect(() => {
+    if (location.state?.from) {
+      setActive(location.state.from);
+    }
+  }, []);
+
   return (
-    <div className="bg-custom-100 flex w-[240px] flex-col gap-2 p-4">
+    <div className="bg-custom-100 flex h-full w-[240px] min-w-[240px] flex-col gap-2 p-4">
       <a className="mb-4 flex flex-row items-center gap-4" href="/">
         <img src={Logo} alt="logo" className="h-10 w-10 object-cover" />
         <p className="text-xl font-bold text-neutral-700">Tourista</p>

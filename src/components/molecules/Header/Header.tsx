@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import Avatar from "@assets/image/avatar.webp";
 import { useAuthStore } from "@infra/storage/store";
 type Props = {
@@ -8,14 +8,17 @@ type Props = {
 };
 
 const Header: FC<Props> = ({ title, description, showAvatar }) => {
-  const { logout } = useAuthStore();
+  const { logout, userData } = useAuthStore();
   const tempTitle = title ?? "Hallo! Pandu";
   const tempDesc = description ?? "Welcome back, Let's manage this!";
+  const avatarName = useMemo(() => {
+    return userData?.name.split(" ")[0];
+  }, [userData?.name]);
   return (
     <div id="header-home" className="flex w-full flex-row justify-between">
       <div id="greeting" className="">
-        <p className="mb-1 text-4xl font-semibold tracking-wide">{tempTitle}</p>
-        <p className="text-base font-light">{tempDesc}</p>
+        <p className="mb-2 text-4xl font-semibold tracking-wide">{tempTitle}</p>
+        <p className="text-base font-light text-neutral-500">{tempDesc}</p>
       </div>
       {showAvatar && (
         <div className="flex flex-row gap-3">
@@ -25,7 +28,7 @@ const Header: FC<Props> = ({ title, description, showAvatar }) => {
             className="h-12 w-12 rounded-full object-cover"
           />
           <div>
-            <p className="font-medium">Pandu</p>
+            <p className="font-medium">{avatarName}</p>
             <button
               type="button"
               className="text-xs text-error-600 hover:text-error-700"

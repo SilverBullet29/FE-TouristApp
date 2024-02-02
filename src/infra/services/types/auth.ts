@@ -1,4 +1,5 @@
 import { APIResponse } from "./api";
+import { User } from "./user";
 
 export namespace Auth {
   export interface UserCredential {
@@ -7,15 +8,13 @@ export namespace Auth {
     Name: string;
     Email: string;
     Token: string;
-    //CAN ADD ANOTHER CRED LIKE REFRESH TOKEN
   }
+
   export interface LoginRequest {
     email: string;
     password: string;
   }
-  export interface LoginResponse extends APIResponse {
-    data: UserCredential;
-  }
+  export type LoginResponse = APIResponse<UserCredential>;
 
   export interface RegisterRequest {
     name: string;
@@ -23,11 +22,5 @@ export namespace Auth {
     password: string;
   }
 
-  export interface RegisterResponse extends APIResponse {
-    data: {
-      email: string;
-      id: string;
-      name: string;
-    };
-  }
+  export type RegisterResponse = APIResponse<User.UserData>;
 }

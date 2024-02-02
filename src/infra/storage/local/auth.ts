@@ -1,4 +1,4 @@
-import { Auth } from "@infra/services/types";
+import { Auth, User } from "@infra/services/types";
 import { LOCAL_KEY, storage } from "@infra/storage/local";
 
 type Storage = typeof storage;
@@ -30,6 +30,21 @@ export class AuthStorage implements AuthStorage {
       return this._credential.Token;
     }
     return this._getCredential()?.Token ?? "";
+  }
+
+  public getUserData(): User.UserData {
+    if (this._credential != null) {
+      return {
+        id: this._credential.Id,
+        name: this._credential.Name,
+        email: this._credential.Email,
+      };
+    }
+    return {
+      id: this._getCredential()?.Name ?? "",
+      name: this._getCredential()?.Email ?? "",
+      email: this._getCredential()?.Id ?? "",
+    };
   }
 
   private _getCredential() {
