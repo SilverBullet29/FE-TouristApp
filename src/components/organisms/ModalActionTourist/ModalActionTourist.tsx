@@ -1,8 +1,8 @@
 import { TextInput } from "@components/atoms";
 import { Modal } from "@components/molecules";
 import { Tourist } from "@infra/services/types/tourist";
-import { FC, useEffect } from "react";
-import useModalEdit from "./hooks/useModalEdit";
+import { FC } from "react";
+import useModalAction from "./hooks/useModalAction";
 
 type Props = {
   initial?: Tourist.Item;
@@ -11,36 +11,23 @@ type Props = {
   onSuccess: () => void;
 };
 
-const ModalEditTourist: FC<Props> = ({ initial, show, onClose, onSuccess }) => {
-  const { register, handleSubmit, errors, onEdit, setValue } = useModalEdit({
-    id: initial?.id ?? "",
-    onSuccess,
-    onError: () => {
-      onClose();
-    },
-  });
-
-  useEffect(() => {
-    if (initial) {
-      setValue("tourist_name", initial.tourist_name);
-      setValue("tourist_email", initial.tourist_email);
-      setValue("tourist_location", initial.tourist_location);
-    }
-  }, [
-    initial?.tourist_name,
-    initial?.tourist_email,
-    initial?.tourist_location,
-    setValue,
-  ]);
+const ModalActionTourist: FC<Props> = ({ show, onClose, onSuccess }) => {
+  const { register, handleSubmit, errors, actionType, onSubmit } =
+    useModalAction({
+      onSuccess,
+      onError: () => {
+        onClose();
+      },
+    });
 
   return (
     <Modal
-      title="Edit Tourist"
+      title={actionType === "update" ? "Edit Tourist" : "Add Tourist"}
       show={show}
       onClose={onClose}
       cancelLabel="Cancel"
-      onProceed={handleSubmit(onEdit)}
-      proceedLabel="Save"
+      onProceed={handleSubmit(onSubmit)}
+      proceedLabel={actionType === "update" ? "Save" : "Add"}
     >
       <TextInput
         placeholder="Name..."
@@ -66,4 +53,4 @@ const ModalEditTourist: FC<Props> = ({ initial, show, onClose, onSuccess }) => {
   );
 };
 
-export default ModalEditTourist;
+export default ModalActionTourist;

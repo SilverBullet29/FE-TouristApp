@@ -27,19 +27,20 @@ export default function useLogin() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSuccess = useCallback(
     (data: Auth.LoginResponse) => {
-      login(data.data);
+      login({ ...data?.data, password: getValues("password") });
       if (from) {
         navigate(from, { replace: true });
         return;
       }
       navigate("/", { replace: true });
     },
-    [from],
+    [from, getValues],
   );
 
   const { mutate } = authQueries.useMutationLogin({

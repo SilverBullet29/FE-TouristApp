@@ -1,4 +1,5 @@
 import { Tourist } from "@infra/services/types/tourist";
+import { useTouristStore } from "@infra/storage/store";
 import { useState } from "react";
 
 type Props = {
@@ -7,27 +8,33 @@ type Props = {
 
 export default function useEditTourist({ refetchFn }: Props) {
   const [showEdit, setShowEdit] = useState<boolean>(false);
-  const [selectedTourist, setSelectedTourist] = useState({} as Tourist.Item);
+  const { setTempTourist, removeTempTourist } = useTouristStore();
 
   const onClickEdit = (tourist: Tourist.Item) => {
-    setSelectedTourist(tourist);
+    setTempTourist(tourist, "update");
     setShowEdit(true);
   };
 
-  const onCloseEdit = () => {
+  const onClickAdd = () => {
+    setTempTourist(null, "add");
+    setShowEdit(true);
+  };
+
+  const onCloseAction = () => {
+    removeTempTourist();
     setShowEdit(false);
   };
 
-  const onSuccessEdit = () => {
+  const onSuccessAction = () => {
     refetchFn();
-    onCloseEdit();
+    onCloseAction();
   };
 
   return {
     showEdit,
-    onCloseEdit,
+    onCloseAction,
+    onSuccessAction,
     onClickEdit,
-    onSuccessEdit,
-    selectedTourist,
+    onClickAdd,
   };
 }

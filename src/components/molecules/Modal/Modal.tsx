@@ -1,6 +1,7 @@
 import { Button } from "@components/atoms";
 import { Modal as ModalFlowBite } from "flowbite-react";
 import { FC, useCallback } from "react";
+import { createPortal } from "react-dom";
 
 export type ModalProps = {
   show: boolean;
@@ -32,7 +33,7 @@ const Modal: FC<ModalProps> = ({
     onClose();
   }, [onCancel]);
 
-  return (
+  return createPortal(
     <ModalFlowBite show={show} onClose={onClose}>
       <ModalFlowBite.Header>{title ?? "Title Modal"}</ModalFlowBite.Header>
       <ModalFlowBite.Body>{children}</ModalFlowBite.Body>
@@ -51,12 +52,13 @@ const Modal: FC<ModalProps> = ({
           isLoading={isLoading}
           disabled={isProceedDisabled}
           className="w-[100px]"
-          type="submit"
+          type="button"
         >
           {proceedLabel ?? "Submit"}
         </Button>
       </ModalFlowBite.Footer>
-    </ModalFlowBite>
+    </ModalFlowBite>,
+    document.getElementById("modal-root") ?? document.body,
   );
 };
 

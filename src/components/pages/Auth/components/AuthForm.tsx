@@ -6,7 +6,7 @@ type Props = {
   title: string;
   titleHref?: string;
   href: string;
-  onSubmit?: React.FormEventHandler<HTMLFormElement>;
+  onSubmit?: () => void;
   children?: React.ReactNode;
   buttonLabel?: string;
   buttonHref?: string;
@@ -26,17 +26,15 @@ const AuthForm: FC<Props> = ({
       <p className="text-basic-900 mb-4 text-start font-semibold md:text-xl 2xl:text-2xl">
         {title}
       </p>
-      <form className="w-full" onSubmit={onSubmit}>
-        {children}
-        <AccountQuestion
-          href={href}
-          buttonLabel={buttonHref ?? "Sign in"}
-          title={titleHref ?? "Don't have account?"}
-        />
-        <Button type="submit" isFull className="mt-6">
-          {buttonLabel ?? "Sign in"}
-        </Button>
-      </form>
+      <div className="w-full">{children}</div>
+      <AccountQuestion
+        href={href}
+        buttonLabel={buttonHref ?? "Sign in"}
+        title={titleHref ?? "Don't have account?"}
+      />
+      <Button type="button" isFull className="mt-6" onClick={onSubmit}>
+        {buttonLabel ?? "Sign in"}
+      </Button>
     </div>
   );
 };

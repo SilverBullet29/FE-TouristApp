@@ -31,4 +31,12 @@ export namespace Tourist {
   }
 
   export type ResponseDelete = APIResponse<any>;
+
+  export type RequestAdd = Omit<RequestEdit, "id">;
+
+  export type RequestDetail = {
+    id: string;
+  };
+
+  export type ResponseDetail = Tourist.Item;
 }

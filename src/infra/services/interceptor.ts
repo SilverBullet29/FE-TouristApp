@@ -6,6 +6,7 @@ import {
 } from "axios";
 import { APIRequestConfig, APIResponseError } from "./types";
 import { authStorage } from ".";
+import { useAuthStore } from "@infra/storage/store";
 
 const onRequest = (
   config: APIRequestConfig & InternalAxiosRequestConfig,
@@ -30,12 +31,15 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 const onResponseError = (
   error: AxiosError<APIResponseError>,
 ): Promise<APIResponseError> => {
+  if (error?.response?.status === 401) {
+    authStorage.removeCredential();
+    window.location.replace("/login");
+  }
   return Promise.reject(error.response?.data);
 };
 
 export function setupInterceptors(axiosInstance: AxiosInstance): AxiosInstance {
   axiosInstance.interceptors.request.use(onRequest, onRequestError);
   axiosInstance.interceptors.response.use(onResponse, onResponseError);
-
   return axiosInstance;
 }

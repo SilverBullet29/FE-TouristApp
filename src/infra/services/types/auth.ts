@@ -8,6 +8,7 @@ export namespace Auth {
     Name: string;
     Email: string;
     Token: string;
+    password: string;
   }
 
   export interface LoginRequest {

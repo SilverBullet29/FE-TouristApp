@@ -1,19 +1,13 @@
-import { Icon } from "@components/atoms";
-import { IconName } from "@components/atoms/Icon/Icon";
+import { ActionButton } from "@components/atoms";
 import { Tourist as TouristType } from "@infra/services/types/tourist";
 import { FC, MouseEventHandler, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Props extends TouristType.Item {
   onClickEdit?: () => void;
   onClickDelete?: () => void;
   className?: string;
 }
-
-type ActionButtonProps = {
-  icon: IconName;
-  color?: string;
-  onClick?: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>;
-};
 
 const Tourist: FC<Props> = ({
   onClickEdit,
@@ -22,24 +16,37 @@ const Tourist: FC<Props> = ({
   tourist_name,
   tourist_email,
   tourist_location,
+  id,
 }) => {
+  const navigate = useNavigate();
   const handleClickEdit = useCallback<MouseEventHandler<HTMLButtonElement>>(
     (e) => {
-      e.preventDefault();
+      e.stopPropagation();
       onClickEdit?.();
     },
     [onClickEdit],
   );
   const handleClickDelete = useCallback<MouseEventHandler<HTMLButtonElement>>(
     (e) => {
-      e.preventDefault();
+      e.stopPropagation();
       onClickDelete?.();
     },
     [onClickDelete],
   );
 
+  const handleClickCard = useCallback<MouseEventHandler<HTMLAnchorElement>>(
+    (e) => {
+      e.stopPropagation();
+      navigate(`/${id}`);
+    },
+    [id, navigate],
+  );
+
   return (
-    <div className="grid w-full transform cursor-pointer grid-cols-4 items-center rounded-lg border-b border-neutral-200 p-3 transition ease-in-out hover:bg-neutral-200">
+    <a
+      className="grid w-full transform cursor-pointer grid-cols-4 items-center rounded-lg border-b border-neutral-200 py-3 pr-4 transition ease-in-out hover:bg-neutral-200"
+      onClick={handleClickCard}
+    >
       <div className="flex flex-row items-center gap-4">
         <img
           src={tourist_profilepicture}
@@ -66,18 +73,8 @@ const Tourist: FC<Props> = ({
           onClick={handleClickDelete}
         />
       </div>
-    </div>
+    </a>
   );
 };
-
-//#region CHILD
-const ActionButton: FC<ActionButtonProps> = ({ onClick, icon, color }) => {
-  return (
-    <button className="rounded-full p-2 hover:bg-neutral-100" onClick={onClick}>
-      <Icon name={icon} fill={color} />
-    </button>
-  );
-};
-//#endregion
 
 export default Tourist;

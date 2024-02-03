@@ -48,7 +48,7 @@ const colors: Record<ColorVariant, Record<ColorWeight, string>> = {
   },
   custom: {
     100: "#EFF0F4",
-    200: "#EFF0F4",
+    200: "#E2E3E8",
     300: "#EFF0F4",
     400: "#EFF0F4",
     500: "#EFF0F4",

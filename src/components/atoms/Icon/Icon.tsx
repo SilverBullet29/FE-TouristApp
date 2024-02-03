@@ -5,8 +5,15 @@ import IcEyeOff from "./svg/IcEyeOff";
 import IcTrash from "./svg/IcTrash";
 import IcPencil from "./svg/IcPencil";
 import IcWarn from "./svg/IcWarn";
+import IcSignOut from "./svg/IcSignOut";
 
-export type IconName = "eye" | "eye-off" | "trash" | "pencil" | "warn";
+export type IconName =
+  | "eye"
+  | "eye-off"
+  | "trash"
+  | "pencil"
+  | "warn"
+  | "sign-out";
 
 interface Props extends SVGProps<SVGElement> {
   name: IconName;
@@ -20,6 +27,7 @@ const EnumIcon: Record<IconName, React.FC> = {
   trash: IcTrash,
   pencil: IcPencil,
   warn: IcWarn,
+  "sign-out": IcSignOut,
 };
 
 const Icon: FC<Props> = ({ name, size, fill, height, width, ...props }) => {

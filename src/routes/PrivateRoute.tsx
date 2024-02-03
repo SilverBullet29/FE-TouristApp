@@ -1,4 +1,4 @@
-import { Sidebar } from "@components/templates";
+import { LayoutBar } from "@components/templates";
 import { useAuthStore } from "@infra/storage/store";
 import React from "react";
 import { Navigate, useMatch } from "react-router-dom";
@@ -14,8 +14,9 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
   const match = useMatch("/:page");
   return auth.isLoggedin ? (
     <div className="flex h-screen w-full">
-      <Sidebar />
-      <Component />
+      <LayoutBar>
+        <Component />
+      </LayoutBar>
     </div>
   ) : (
     <Navigate to="/login" state={{ from: match?.pathname }} replace />

@@ -15,3 +15,13 @@ export const deleteTourist = ({
   id,
 }: Tourist.RequestDelete): Promise<Tourist.Response> =>
   axiosClient.delete(`/api/Tourist/${id}`);
+
+export const postTourist = ({
+  ...params
+}: Tourist.RequestAdd): Promise<Tourist.Response> =>
+  axiosClient.post("/api/Tourist", params);
+
+export const getTouristDetail = ({
+  id,
+}: Tourist.RequestDetail): Promise<Tourist.ResponseDetail> =>
+  axiosClient.get(`/api/Tourist/${id}`);

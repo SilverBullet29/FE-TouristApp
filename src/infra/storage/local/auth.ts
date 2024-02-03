@@ -38,12 +38,14 @@ export class AuthStorage implements AuthStorage {
         id: this._credential.Id,
         name: this._credential.Name,
         email: this._credential.Email,
+        password: this._credential.password,
       };
     }
     return {
       id: this._getCredential()?.Name ?? "",
       name: this._getCredential()?.Email ?? "",
       email: this._getCredential()?.Id ?? "",
+      password: this._getCredential()?.password ?? "",
     };
   }
 

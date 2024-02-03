@@ -1,5 +1,4 @@
 import { touristQueries } from "@infra/queries";
-import { Tourist } from "@infra/services/types/tourist";
 import { useAuthStore } from "@infra/storage/store";
 import { useState } from "react";
 

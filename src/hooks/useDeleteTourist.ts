@@ -1,4 +1,5 @@
 import { Tourist } from "@infra/services/types/tourist";
+import { useTouristStore } from "@infra/storage/store";
 import { useState } from "react";
 
 type Props = {
@@ -7,18 +8,20 @@ type Props = {
 
 export default function useDeleteTourist({ refetchFn }: Props) {
   const [showDelete, setShowDelete] = useState<boolean>(false);
-  const [selectedTourist, setSelectedTourist] = useState({} as Tourist.Item);
+  const { setTempTourist, removeTempTourist } = useTouristStore();
 
   const onClickDelete = (tourist: Tourist.Item) => {
-    setSelectedTourist(tourist);
+    setTempTourist(tourist, "delete");
     setShowDelete(true);
   };
 
   const onCloseDelete = () => {
+    removeTempTourist();
     setShowDelete(false);
   };
 
   const onSuccessDelete = () => {
+    removeTempTourist();
     refetchFn();
     setShowDelete(false);
   };
@@ -28,6 +31,5 @@ export default function useDeleteTourist({ refetchFn }: Props) {
     onCloseDelete,
     onClickDelete,
     onSuccessDelete,
-    selectedTourist,
   };
 }

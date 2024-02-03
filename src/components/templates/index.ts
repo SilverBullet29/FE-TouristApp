@@ -1,3 +1,3 @@
-import Sidebar from "./SideBar";
+import LayoutBar from "./LayoutBar/LayoutBar";
 
-export { Sidebar };
+export { LayoutBar };

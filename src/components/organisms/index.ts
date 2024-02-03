@@ -1,4 +1,5 @@
-import ModalEditTourist from "./ModalEditTourist/ModalEditTourist";
+import ModalActionTourist from "./ModalActionTourist/ModalActionTourist";
 import ModalDeleteTourist from "./ModalDeleteTourist/ModalDeleteTourist";
+import Sidebar from "./SideBar/SideBar";
 
-export { ModalEditTourist, ModalDeleteTourist };
+export { ModalActionTourist, ModalDeleteTourist, Sidebar };

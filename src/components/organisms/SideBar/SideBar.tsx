@@ -1,6 +1,6 @@
 import { MAP_ROUTE } from "@utils/constant";
 import { FC, useCallback, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import Logo from "@assets/image/logo.webp";
 
 type ItemProp = {
@@ -13,20 +13,18 @@ type ItemProp = {
 
 const Sidebar = () => {
   const [active, setActive] = useState("/");
-  const location = useLocation();
+  const match = useMatch("/:page");
 
   const handleClick = useCallback((path: string) => {
     setActive(path);
   }, []);
 
   useEffect(() => {
-    if (location.state?.from) {
-      setActive(location.state.from);
-    }
-  }, []);
+    handleClick(match?.pathname || "/");
+  }, [match?.pathname]);
 
   return (
-    <div className="bg-custom-100 flex h-full w-[240px] min-w-[240px] flex-col gap-2 p-4">
+    <div className="bg-custom-100 fixed top-0 z-30 flex h-full w-[240px] min-w-[240px] flex-col gap-2 p-4">
       <a className="mb-4 flex flex-row items-center gap-4" href="/">
         <img src={Logo} alt="logo" className="h-10 w-10 object-cover" />
         <p className="text-xl font-bold text-neutral-700">Tourista</p>
@@ -57,7 +55,7 @@ const BarItem: FC<ItemProp> = ({
   }, []);
 
   const style = isActive
-    ? "text-neutral-100 font-bold bg-primary-500"
+    ? "text-primary-500 font-bold bg-custom-200"
     : "text-neutral-500 font-normal bg-custom-100 hover:bg-primary-100 hover:text-primary-400";
 
   return (

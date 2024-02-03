@@ -1,4 +1,4 @@
-import useEditTourist from "./useEditTourist";
+import useActionTourist from "./useActionTourist";
 import useDeleteTourist from "./useDeleteTourist";
 
-export { useDeleteTourist, useEditTourist };
+export { useDeleteTourist, useActionTourist };
