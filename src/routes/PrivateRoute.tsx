@@ -10,9 +10,9 @@ export type PrivateRouteProps = {
 const PrivateRoute: React.FC<PrivateRouteProps> = ({
   component: Component,
 }) => {
-  const auth = useAuthStore();
+  const { isLoggedin } = useAuthStore();
   const match = useMatch("/:page");
-  return auth.isLoggedin ? (
+  return isLoggedin ? (
     <div className="flex h-screen w-full">
       <LayoutBar>
         <Component />

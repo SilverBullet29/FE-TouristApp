@@ -22,7 +22,7 @@ export const storage = {
     if (INTERNAL_STORAGE) {
       INTERNAL_STORAGE.setItem(
         LOCAL_KEY[key],
-        AES.encrypt(value, `${key}-${STORE_KEY}`)?.toString()
+        AES.encrypt(value, `${key}-${STORE_KEY}`)?.toString(),
       );
     }
   },
@@ -37,24 +37,4 @@ export const storage = {
     }
   },
 };
-//#endregion
-
-//#region session
-export const setSessionData = (key: keyof typeof LOCAL_KEY, value: any) => {
-  sessionStorage.setItem(
-    LOCAL_KEY[key],
-    AES.encrypt(value, `${key}-${STORE_KEY}`)?.toString()
-  );
-};
-
-export const getSessionData = (key: keyof typeof LOCAL_KEY) => {
-  const data = sessionStorage.getItem(LOCAL_KEY[key]);
-  if (!data) {
-    return "";
-  }
-  return AES.decrypt(data, `${key}-${STORE_KEY}`)?.toString(enc8);
-};
-
-export const deleteSessionData = (key: keyof typeof LOCAL_KEY) =>
-  sessionStorage.removeItem(LOCAL_KEY[key]);
 //#endregion

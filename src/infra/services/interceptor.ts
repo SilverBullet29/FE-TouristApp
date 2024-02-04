@@ -6,7 +6,6 @@ import {
 } from "axios";
 import { APIRequestConfig, APIResponseError } from "./types";
 import { authStorage } from ".";
-import { useAuthStore } from "@infra/storage/store";
 
 const onRequest = (
   config: APIRequestConfig & InternalAxiosRequestConfig,

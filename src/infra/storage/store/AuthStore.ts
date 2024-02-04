@@ -10,6 +10,14 @@ export const useAuthStore = create<AuthState>((set) => {
     setIsLogin,
     login: (credential) => {
       authStorage.setCredential(credential);
+      set({
+        userData: {
+          email: credential.Email,
+          name: credential.Name,
+          id: credential.Id,
+          password: credential.password,
+        },
+      });
       setIsLogin(true);
     },
     logout: () => {

@@ -1,10 +1,11 @@
 import { Tourist } from "@components/molecules";
 import useHome from "./hooks/useHome";
-import { Pagination } from "flowbite-react";
+import { Pagination, Spinner } from "flowbite-react";
 import { ModalDeleteTourist, ModalActionTourist } from "@components/organisms";
 import { useDeleteTourist, useActionTourist } from "@hooks";
 import { Button } from "@components/atoms";
 import AvatarIcon from "@assets/image/avatar.webp";
+import { useMemo } from "react";
 
 const Home = () => {
   const {
@@ -14,6 +15,7 @@ const Home = () => {
     totalPages,
     touristList,
     refetchTourist,
+    isLoading,
   } = useHome();
 
   const { showDelete, onClickDelete, onCloseDelete, onSuccessDelete } =
@@ -23,6 +25,27 @@ const Home = () => {
     useActionTourist({
       refetchFn: refetchTourist,
     });
+
+  const content = useMemo(() => {
+    if (!!touristList?.length && !isLoading) {
+      return touristList.map(({ ...props }) => (
+        <Tourist
+          key={props.id}
+          {...props}
+          onClickEdit={() => onClickEdit({ ...props })}
+          onClickDelete={() => onClickDelete({ ...props })}
+        />
+      ));
+    }
+    if (isLoading) {
+      return (
+        <div className="flex h-80 w-full items-center justify-center">
+          <Spinner color={"pink"} size={"xl"} />
+        </div>
+      );
+    }
+    return <></>;
+  }, [touristList, isLoading, onClickEdit, onClickDelete]);
 
   return (
     <div className="relative flex h-full w-full flex-col bg-neutral-100 px-16 pb-8">
@@ -47,15 +70,7 @@ const Home = () => {
         </Button>
       </div>
       <div className="z-0 mb-4 max-h-[calc(100vh-240px)] overflow-y-auto">
-        {!!touristList?.length &&
-          touristList.map(({ ...props }) => (
-            <Tourist
-              key={props.id}
-              {...props}
-              onClickEdit={() => onClickEdit({ ...props })}
-              onClickDelete={() => onClickDelete({ ...props })}
-            />
-          ))}
+        {content}
       </div>
       <div className="mt-4 flex w-full justify-end">
         <Pagination

@@ -6,7 +6,7 @@ export default function useHome() {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const { userData } = useAuthStore();
-  const { data, refetch } = touristQueries.useQueryTourist({
+  const { data, refetch, isLoading } = touristQueries.useQueryTourist({
     page: currentPage,
   });
 
@@ -25,5 +25,6 @@ export default function useHome() {
     touristList: data?.data,
     totalPages: data?.total_pages ?? 0,
     onPageChange,
+    isLoading,
   };
 }

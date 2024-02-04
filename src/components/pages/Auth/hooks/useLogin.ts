@@ -3,7 +3,7 @@ import { emailSchema, passwordSchema } from "@utils/schema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authQueries } from "@infra/queries";
+import { authQueries, userQueries } from "@infra/queries";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Auth } from "@infra/services/types";
@@ -31,16 +31,24 @@ export default function useLogin() {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
+  const { mutateAsync: fetchProfile } = userQueries.useMutationProfile();
+
   const onSuccess = useCallback(
-    (data: Auth.LoginResponse) => {
-      login({ ...data?.data, password: getValues("password") });
+    async (data: Auth.LoginResponse) => {
+      login({ ...data?.data });
+      const tempProfile = await fetchProfile({
+        email: data.data?.Email,
+        id: data.data?.Id,
+        password: data.data?.password,
+      });
+      login({ ...data?.data, password: tempProfile?.password });
       if (from) {
         navigate(from, { replace: true });
         return;
       }
       navigate("/", { replace: true });
     },
-    [from, getValues],
+    [from, getValues, navigate, fetchProfile, login],
   );
 
   const { mutate } = authQueries.useMutationLogin({

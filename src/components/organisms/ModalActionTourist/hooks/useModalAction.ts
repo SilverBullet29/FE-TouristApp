@@ -29,11 +29,14 @@ export default function useModalAction({ onSuccess, onError }: Params) {
   const { actionType, tempTourist, removeTempTourist } = useTouristStore();
   const handleSuccess = useCallback(() => {
     onSuccess?.();
-    toast.success("Tourist updated successfully", {
-      position: "bottom-center",
-    });
+    toast.success(
+      `Tourist ${actionType === "add" ? "added" : actionType === "update" ? "updated" : "deleted"} successfully`,
+      {
+        position: "bottom-center",
+      },
+    );
     removeTempTourist();
-  }, [onSuccess, removeTempTourist]);
+  }, [onSuccess, removeTempTourist, actionType]);
 
   const handleError = useCallback(
     (error: APIResponseError) => {

@@ -37,7 +37,7 @@ const Tourist: FC<Props> = ({
   const handleClickCard = useCallback<MouseEventHandler<HTMLAnchorElement>>(
     (e) => {
       e.stopPropagation();
-      navigate(`/${id}`);
+      navigate(`/tourist/${id}`);
     },
     [id, navigate],
   );

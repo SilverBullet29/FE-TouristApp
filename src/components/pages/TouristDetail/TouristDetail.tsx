@@ -11,7 +11,7 @@ type ItemContentProps = {
 };
 
 const TouristDetail = () => {
-  const match = useMatch({ path: "/:id" });
+  const match = useMatch({ path: "/tourist/:id" });
   const navigate = useNavigate();
 
   const { data, refetch } = touristQueries.useQueryDetail(
@@ -48,7 +48,7 @@ const TouristDetail = () => {
       <p className="mb-6 text-4xl font-semibold tracking-wide">
         Tourist Detail
       </p>
-      <div className="border-custom-100 h-fit w-[500px] rounded-xl border p-6">
+      <div className="h-fit w-[500px] rounded-xl border border-custom-100 p-6">
         <div className="flex flex-row items-start justify-between">
           <img
             src={data?.tourist_profilepicture}
