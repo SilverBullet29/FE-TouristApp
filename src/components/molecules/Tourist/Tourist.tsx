@@ -44,7 +44,7 @@ const Tourist: FC<Props> = ({
 
   return (
     <a
-      className="grid w-full transform cursor-pointer grid-cols-4 items-center rounded-lg border-b border-neutral-200 py-3 pr-4 transition ease-in-out hover:bg-neutral-200"
+      className="flex w-full transform cursor-pointer grid-cols-4 flex-col items-start gap-y-1 rounded-lg border-b border-neutral-200 py-3 pr-4 transition ease-in-out hover:bg-neutral-200 lg:grid lg:items-center"
       onClick={handleClickCard}
     >
       <div className="flex flex-row items-center gap-4">
@@ -59,9 +59,9 @@ const Tourist: FC<Props> = ({
           </p>
         </div>
       </div>
-      <p className="text-sm text-neutral-700">{tourist_email}</p>
-      <p className="text-sm text-neutral-700">{tourist_location}</p>
-      <div className="flex items-center justify-end gap-x-4">
+      <p className="text-xs text-neutral-700 lg:text-sm">{tourist_email}</p>
+      <p className="text-xs text-neutral-700 lg:text-sm">{tourist_location}</p>
+      <div className="flex w-full items-center justify-end gap-x-4">
         <ActionButton
           icon="pencil"
           color="primary-500"

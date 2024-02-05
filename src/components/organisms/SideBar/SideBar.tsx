@@ -23,21 +23,29 @@ const Sidebar = () => {
     handleClick(match?.pathname || "/");
   }, [match?.pathname]);
 
+  const renderContent = useCallback(
+    ({ name, path }: { name: string; path: string }) => (
+      <BarItem
+        key={name}
+        display={name}
+        path={path}
+        onClick={handleClick}
+        isActive={active === path}
+      />
+    ),
+    [handleClick, active],
+  );
+
   return (
-    <div className="fixed top-0 z-30 flex h-full w-[240px] min-w-[240px] flex-col gap-2 bg-custom-100 p-4">
-      <a className="mb-4 flex flex-row items-center gap-4" href="/">
+    <div className="bg-custom-100 stick top-0 z-30 flex h-20 w-full min-w-[240px] flex-row justify-between gap-2 p-4 lg:h-screen lg:w-[240px] lg:flex-col lg:justify-start">
+      <a
+        className="mb-0 flex flex-row items-center justify-start gap-4 lg:mb-4"
+        href="/"
+      >
         <img src={Logo} alt="logo" className="h-10 w-10 object-cover" />
-        <p className="text-xl font-bold text-neutral-700">Tourista</p>
+        <p className="flex text-xl font-bold text-neutral-700">Tourista</p>
       </a>
-      {MAP_ROUTE.map(({ name, path }) => (
-        <BarItem
-          key={name}
-          display={name}
-          path={path}
-          onClick={handleClick}
-          isActive={active === path}
-        />
-      ))}
+      {MAP_ROUTE.map(renderContent)}
     </div>
   );
 };
@@ -61,7 +69,7 @@ const BarItem: FC<ItemProp> = ({
   return (
     <Link
       to={path}
-      className={`w-full rounded-xl px-4 py-3 text-lg ${style} ${className ?? ""}`}
+      className={`w-fit rounded-xl px-4 py-3 text-base lg:w-full lg:text-lg ${style} ${className ?? ""}`}
       onClick={handleClick}
     >
       {display}

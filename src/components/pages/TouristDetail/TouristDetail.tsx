@@ -44,15 +44,15 @@ const TouristDetail = () => {
   }, [onClickDelete, data]);
 
   return (
-    <div className="h-screen w-full p-16">
+    <div className="h-screen w-full p-6 lg:p-16">
       <p className="mb-6 text-4xl font-semibold tracking-wide">
         Tourist Detail
       </p>
-      <div className="h-fit w-[500px] rounded-xl border border-custom-100 p-6">
+      <div className="border-custom-100 h-fit w-full rounded-xl border p-6 lg:w-[500px]">
         <div className="flex flex-row items-start justify-between">
           <img
             src={data?.tourist_profilepicture}
-            className="mb-4 h-40 w-40 rounded-xl"
+            className="mb-4 h-20 w-20 rounded-xl lg:h-40 lg:w-40"
           />
           <div className="flex">
             <ActionButton
@@ -92,8 +92,10 @@ const TouristDetail = () => {
 const ItemContent: FC<ItemContentProps> = ({ title, content }) => {
   return (
     <div className="flex flex-col">
-      <p className="text-sm text-neutral-400">{title}</p>
-      <p className="text-lg font-medium text-neutral-700">{content ?? ""}</p>
+      <p className="text-xs text-neutral-400 lg:text-sm">{title}</p>
+      <p className="text-base font-medium text-neutral-700 lg:text-lg">
+        {content ?? ""}
+      </p>
     </div>
   );
 };
