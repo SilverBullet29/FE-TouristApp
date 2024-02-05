@@ -1,9 +1,10 @@
 import { touristQueries } from "@infra/queries";
 import { useAuthStore } from "@infra/storage/store";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function useHome() {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
 
   const { userData } = useAuthStore();
   const { data, refetch, isLoading } = touristQueries.useQueryTourist({
@@ -18,12 +19,18 @@ export default function useHome() {
     refetch();
   };
 
+  useEffect(() => {
+    if (data?.total_pages && data?.total_pages !== totalPages) {
+      setTotalPages(data?.total_pages);
+    }
+  }, [data?.total_pages, totalPages]);
+
   return {
     userData,
     currentPage,
     refetchTourist,
     touristList: data?.data,
-    totalPages: data?.total_pages ?? 0,
+    totalPages,
     onPageChange,
     isLoading,
   };
